@@ -25,8 +25,8 @@ int main(int argc, char *argv[])
     
     // if any oprands does not support
     for (int i = 2; i <= (argc - 2); i += 2){
-        printf("%d\n", i);
-        printf("argv[%i]: %s\n", i, argv[i]);
+        // printf("%d\n", i);
+        // printf("argv[%i]: %s\n", i, argv[i]);
         if (argv[i][0] != '+' && argv[i][0] != '-' && argv[i][0] != 'x' && argv[i][0] != '/'){
             // error massage
             printf("oprands must be from (+, -, x, /)\n");
@@ -66,7 +66,6 @@ int main(int argc, char *argv[])
             if (operators[i] == 'x'){
                 // product result
                 result = numbers[i] * numbers[i + 1];
-                printf("%f\n", result);
             }
             else {
                 // we dont want to devide by zero, so need to return an error if user give such input
@@ -95,19 +94,50 @@ int main(int argc, char *argv[])
             i--;            // we will check once again from the ith number, because there could be an input like: d * u * p => (d * u) is the next i after one run of loop so now next i times i + 1
         }
     }
-    // printf("[");
-    // for (int i = 0; i < n_count; i++){
-    //     if (i == n_count - 1){
-    //         printf("%f", numbers[i]);
-    //     }
-    //     else {
-    //         printf("%f, ", numbers[i]);
-    //     }
-    // }
-    // printf("]\n");
-    
-    
     // now, addition and subtraction.
+    for (int i = 0; i < o_count; i++){
+        if (operators[i] == '+' || operators[i] == '-'){
+            double result;
+            if (operators[i] == '+'){
+                result = numbers[i] + numbers[i + 1];
+            }
+            else {
+                result = numbers[i] - numbers[i + 1];
+            }
+
+            numbers[i] = result;
+
+            for (int j = i + 1; j < n_count - 1; j++){
+                numbers[j] = numbers[j + 1];
+            }
+            for (int j = i; j < o_count; j++){
+                operators[j] = operators[j + 1];
+            }
+
+            n_count--;
+            o_count--;
+            i--;
+        }
+    }
     
+    
+    
+    
+    
+    
+    
+    printf("[");
+    for (int i = 0; i < n_count; i++){
+        if (i == n_count - 1){
+            printf("%f", numbers[i]);
+        }
+        else {
+            printf("%f, ", numbers[i]);
+        }
+    }
+    printf("]\n");
+    
+    
+
 }
 
